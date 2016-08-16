@@ -1,0 +1,13 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="dips8">8dp</dimen>
+    <dimen name="dips4">4dp</dimen>
+    <dimen name="dips16">16dp</dimen>
+    <dimen name="dips24">24dp</dimen>
+    <dimen name="list_min_height">68dp</dimen>
+    <dimen name="id_column_width">30dp</dimen>
+    <dimen name="text_column_width">100dp</dimen>
+    <dimen name="quantity_column_width">50dp</dimen>
+    <dimen name="price_column_width">80dp</dimen>
+    <dimen name="button_text">18dp</dimen>
+</resources>

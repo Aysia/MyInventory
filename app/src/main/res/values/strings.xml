@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">My Inventory</string>
+    <string name="empty_list">No Products Available</string>
+    <string name="id_text">ID</string>
+    <string name="product_text">Product</string>
+    <string name="supplier_text">Supplier</string>
+    <string name="quantity_text">QTY</string>
+    <string name="price_text">Price</string>
+    <string name="dollar_sign">$</string>
+    <string name="add_product">+ ADD PRODUCT</string>
+    <string name="add_photo">Upload Image</string>
+    <string name="submit_text">Submit</string>
+    <string name="delete_product">DELETE</string>
+    <string name="sell_product">SOLD</string>
+    <string name="update_product">UPDATE</string>
+    <string name="order_product">ORDER</string>
+    <string name="decrement">-</string>
+    <string name="increment">+</string>
+
+</resources>

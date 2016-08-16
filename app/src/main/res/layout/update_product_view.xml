@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/update_view"
+    android:padding="@dimen/dips16">
+
+    <TextView
+        android:id="@+id/product_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dips16"
+        android:textAppearance="?android:textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/add_product_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dips16"
+        android:hint="@string/product_text" />
+
+    <EditText
+        android:id="@+id/add_supplier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dips16"
+        android:hint="@string/supplier_text" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_price"
+        android:padding="@dimen/dips16"
+        android:hint="@string/price_text"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_quantity"
+        android:padding="@dimen/dips16"
+        android:hint="@string/quantity_text"
+        android:inputType="number" />
+
+    <Button
+        style="@style/button_styles"
+        android:id="@+id/add_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_photo"
+        android:padding="@dimen/dips16" />
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            style="@style/button_styles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/submit_text"
+            android:id="@+id/button_submit"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+</LinearLayout>
