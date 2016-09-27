@@ -10,6 +10,7 @@ import java.io.InputStream;
 
 /**
  * Created by Lani on 8/8/2016.
+ * Simple Utility to manipulate Bitmaps into byte[] for upload to database
  */
 public class BitmapUtility {
     public static byte[] getImageBytes(Bitmap bitmap) {

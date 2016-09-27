@@ -8,8 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 /**
  * Created by Lani on 8/8/2016.
+ * CustomAdapter will be utilized by the MainActivity to display list_items
  */
 class CustomAdapter extends CursorAdapter {
     // CursorAdapter will handle all the moveToFirst(), getCount() logic for you :)
@@ -22,13 +25,16 @@ class CustomAdapter extends CursorAdapter {
     // you don't bind any data to the view at this point.
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        return LayoutInflater.from(context).inflate(R.layout.list_inventory_view, parent, false);
+        return LayoutInflater.from(context).inflate(R.layout.list_product, parent, false);
     }
 
     // The bindView method is used to bind all data to a given view
     // such as setting the text on a TextView.
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+
+        TextView productId = (TextView) view.findViewById(R.id.product_id);
+        productId.setText(cursor.getString(cursor.getColumnIndex(DatabaseContract.Inventory.PRODUCT_ID)));
 
         TextView product = (TextView) view.findViewById(R.id.product_name);
         product.setText(cursor.getString(cursor.getColumnIndex(DatabaseContract.Inventory.PRODUCT_NAME)));
@@ -41,9 +47,11 @@ class CustomAdapter extends CursorAdapter {
         String dollarFormat = context.getString(R.string.dollar_sign);
         dollarFormat += thePrice;
         price.setText(dollarFormat);
+
     }
 
     public static final int getCursorPosition(Cursor cursor) {
         return cursor.getPosition();
     }
+
 }

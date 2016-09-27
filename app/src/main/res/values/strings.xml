@@ -12,9 +12,21 @@
     <string name="submit_text">Submit</string>
     <string name="delete_product">DELETE</string>
     <string name="sell_product">SOLD</string>
-    <string name="update_product">UPDATE</string>
+    <string name="update_product">RECEIVE</string>
     <string name="order_product">ORDER</string>
     <string name="decrement">-</string>
     <string name="increment">+</string>
+    <string name="sale_product">Sell</string>
+    <string name="supplier_name_text">Supplier Name</string>
+    <string name="supplier_contact_text">Supplier Contact</string>
+    <string name="add_supplier">+ Supplier</string>
+    <string name="update_quantity_text">Enter the number of product received:</string>
+    <!-- Validation Strings -->
+    <string name="validate_quantity_text">Please enter the quantity received!</string>
+    <string name="validate_product_name">Please enter a name for the Product.</string>
+    <string name="validate_product_image">Please upload an image</string>
+    <string name="validate_product_quantity">Please enter a quantity in stock</string>
+    <string name="validate_product_price">Please enter a price for the product.</string>
+    <string name="validate_supplier_name">Please enter a supplier name</string>
 
 </resources>

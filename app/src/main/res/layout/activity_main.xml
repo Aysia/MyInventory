@@ -15,11 +15,22 @@
 
         <Button
             style="@style/button_styles"
+            android:id="@+id/add_supplier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/add_button"
+            android:textSize="12sp"
+            android:text="@string/add_supplier" />
+
+        <Button
+            style="@style/button_styles"
             android:id="@+id/add_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
+            android:textSize="12sp"
             android:text="@string/add_product" />
 
     </RelativeLayout>
@@ -32,7 +43,7 @@
         <TextView
             style="@style/HeaderView"
             android:layout_width="0dp"
-            android:layout_weight="60"
+            android:layout_weight="40"
             android:layout_height="wrap_content"
             android:text="@string/product_text"
             android:textAllCaps="true"
@@ -52,6 +63,14 @@
             android:layout_weight="20"
             android:text="@string/price_text"
             android:textAllCaps="true" />
+
+        <TextView
+            style="@style/HeaderView"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/empty_space"/>
+
     </LinearLayout>
 
     <ListView

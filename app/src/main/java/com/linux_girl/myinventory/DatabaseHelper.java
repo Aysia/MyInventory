@@ -6,16 +6,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  * Created by Lani on 8/8/2016.
+ * Manipulate the Database here! I love databases!
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
     public DatabaseHelper(Context context) {
@@ -28,6 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DatabaseContract.Inventory.CREATE_PRODUCTS_TABLE);
         db.execSQL(DatabaseContract.Inventory.CREATE_SALES_TABLE);
+        db.execSQL(DatabaseContract.Inventory.CREATE_SUPPLIER_TABLE);
     }
 
     // Method is called during an upgrade of the database
@@ -35,11 +34,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(DatabaseContract.Inventory.DELETE_PRODUCT_TABLE);
         db.execSQL(DatabaseContract.Inventory.DELETE_SALES_TABLE);
+        db.execSQL(DatabaseContract.Inventory.DELETE_SUPPLIER_TABLE );
         onCreate(db);
     }
 
-    public void deleteDatabase(SQLiteDatabase db, String tablename) {
-        db.execSQL("DROP TABLE IF EXISTS tablename");
+    public void deleteDatabase() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL(DatabaseContract.Inventory.DELETE_PRODUCT_TABLE);
+        db.execSQL(DatabaseContract.Inventory.DELETE_SALES_TABLE);
+        db.execSQL(DatabaseContract.Inventory.DELETE_SUPPLIER_TABLE);
     }
 
     public long insertProduct(ContentValues values) {
@@ -53,16 +56,49 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return newRowId;
     }
 
-    public void insertSales(String productId, int quantity, double price,
-                            double total) {
+    public long insertSupplier(ContentValues values) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        // Insert the new row, returning the primary key value of the new row
+        long newRowId;
+        newRowId = db.insert(
+                DatabaseContract.Inventory.SUPPLIER_TABLE_NAME, null, values);
+        return newRowId;
+    }
+
+    /**
+     * Get the Product ID
+     */
+    public void preFillDatabase(String productName, String supplier,
+                                byte[] image, int quantity, double price) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(DatabaseContract.Inventory.PRODUCT_NAME, productName);
+        values.put(DatabaseContract.Inventory.PRODUCT_SUPPLIER, supplier);
+        values.put(DatabaseContract.Inventory.PRODUCT_IMAGE, image);
+        values.put(DatabaseContract.Inventory.PRODUCT_PRICE, price);
+        values.put(DatabaseContract.Inventory.PRODUCT_QUANTITY, quantity);
+
+        db.insert(
+                DatabaseContract.Inventory.PRODUCTS_TABLE_NAME, null, values);
+
+    }
+
+    /** Always prefill Suppliers */
+    public void addSupplier(ContentValues values) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.insert(
+                DatabaseContract.Inventory.SUPPLIER_TABLE_NAME, null, values);
+
+    }
+
+
+    public void insertSales(ContentValues values) {
 
         SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(DatabaseContract.Inventory.PRODUCT_ID_NO, productId);
-        values.put(DatabaseContract.Inventory.DATE_RECEIVED, getCurrentTimestamp());
-        values.put(DatabaseContract.Inventory.QUANTITY_SOLD, quantity);
-        values.put(DatabaseContract.Inventory.TOTAL_PRICE, price);
-        values.put(DatabaseContract.Inventory.PRODUCT_QUANTITY, quantity);
+
 
         // Insert the new row, returning the primary key value of the new row
         long newRowId;
@@ -129,32 +165,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
-    // update product inventory QTY based on _ID
-    public int sellProduct(int rowId) {
-        SQLiteDatabase db = getWritableDatabase();
-
-        //Get value of current product quantity
-        Cursor cursor = getProduct(rowId);
-        String currentQtyStr = cursor.getString(cursor.getColumnIndex(DatabaseContract.Inventory.PRODUCT_QUANTITY));
-        int currentQty = Integer.parseInt(currentQtyStr);
-
-        // New value for one column
-        ContentValues values = new ContentValues();
-        values.put(DatabaseContract.Inventory.PRODUCT_QUANTITY, currentQty + 1);
-
-        // Which row to update, based on the ID
-        String selection = DatabaseContract.Inventory.PRODUCT_ID + " LIKE ?";
-        String[] selectionArgs = {String.valueOf(rowId)};
-
-        int count = db.update(
-                DatabaseContract.Inventory.PRODUCTS_TABLE_NAME,
-                values,
-                selection,
-                selectionArgs);
-
-        return currentQty;
-    }
-
     // Delete row based on _ID
     public void deleteProducts(int product_id) {
         SQLiteDatabase db = getWritableDatabase();
@@ -171,6 +181,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM " + DatabaseContract.Inventory.PRODUCTS_TABLE_NAME);
         db.execSQL("DELETE FROM " + DatabaseContract.Inventory.SALES_TABLE_NAME);
+        //db.execSQL("DELETE FROM " + DatabaseContract.Inventory.SUPPLIER_TABLE_NAME);
+
     }
 
     public String getCurrentTimestamp() {
